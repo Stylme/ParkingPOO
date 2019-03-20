@@ -93,7 +93,7 @@ public class Parqueadero {
         Vehiculo v = buscarCarro(placa);
         tiempo = tiempo + v.getMinutos();
         v.setMinutos(tiempo);
-        ingresosTotales = v.getMinutos()*100;
+        ingresosTotales += v.getMinutos()*100;
     }
 
     public Vehiculo buscarCarro(String placa) {
