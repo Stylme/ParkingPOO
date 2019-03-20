@@ -157,7 +157,7 @@ public class Parqueadero {
     }
 
     public void registrarSalidaDeVehiculo(String placa) {
-        ingresosTotales -= darEspacioDeVehiculo(placa).getVehiculo().getMinutos();
+        ingresosTotales -= darEspacioDeVehiculo(placa).getVehiculo().getMinutos()*100;
         darEspacioDeVehiculo(placa).desocupar();
         
     }
