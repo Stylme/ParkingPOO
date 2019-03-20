@@ -93,6 +93,7 @@ public class Parqueadero {
         Vehiculo v = buscarCarro(placa);
         tiempo = tiempo + v.getMinutos();
         v.setMinutos(tiempo);
+        ingresosTotales = v.getMinutos()*100;
     }
 
     public Vehiculo buscarCarro(String placa) {
@@ -156,20 +157,12 @@ public class Parqueadero {
     }
 
     public void registrarSalidaDeVehiculo(String placa) {
+        ingresosTotales -= darEspacioDeVehiculo(placa).getVehiculo().getMinutos();
         darEspacioDeVehiculo(placa).desocupar();
+        
     }
 
     public int darIngresosTotales() {
-        Vehiculo array[] = {Parqueadero.this.espacio1.getVehiculo(),
-            Parqueadero.this.espacio2.getVehiculo(),
-            Parqueadero.this.espacio3.getVehiculo(),
-            Parqueadero.this.espacio4.getVehiculo()
-        };
-        for (Vehiculo array1 : array) {
-            if (array1 != null) {
-                this.ingresosTotales = this.ingresosTotales + (array1.getMinutos() * 100);
-            }
-        }
         return ingresosTotales;
     }
 
