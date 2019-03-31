@@ -64,12 +64,6 @@ public class Espacio {
     }
     
     
-    //Tiene la misma utilidad del get, sin embargo, prefiero usar get
-    
-    public Vehiculo darVehiculo(){
-        return vehiculo;
-    }
-    
     // llamado a la clase string
 
     @Override

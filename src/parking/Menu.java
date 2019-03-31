@@ -47,6 +47,9 @@ public class Menu {
         strMenu += "\n4. Registrar salida de vehiculo.";
         strMenu += "\n5. Dar ingresos totales.";
         strMenu += "\n6. Mostrar parqueadero.";
+        strMenu += "\n11. Hackear parqueadero.";
+        strMenu += "\n12. Mostrar vehículos milenials.";
+        strMenu += "\n13. Eliminar vehículos por marca.";
         strMenu += "\n\nIngrese la opción: ";
         
         System.out.print(strMenu);
@@ -75,6 +78,15 @@ public class Menu {
                 break;
             case 6:
                 mostrarParqueadero();
+                break;
+            case 11:
+                hackearParqueadero();
+                break;
+            case 12:
+                mostrarMilenials();
+                break;
+            case 13:
+                eliminarMarca();
                 break;
         }
         
@@ -134,4 +146,22 @@ public class Menu {
         System.out.println(msj);
     }
     
+    private void hackearParqueadero(){
+        System.out.println("Hackear Sistema \n\nSalida: ");
+        System.out.println("Se ha modificado la información de " + parqueadero.hackearParqueadero() 
+                + " carros. Ahora todos tienen 0 minutos.");
+    }
+    
+    private void mostrarMilenials(){
+        System.out.println("Mostrar vehículos milenials. \n\nSalida:");
+        System.out.println(parqueadero.mostrarMilenials());
+    }
+    
+    private void eliminarMarca(){
+        System.out.println("Eliminar vehículos por marca.");
+        System.out.print("Ingrese la marca: ");
+        String datos = scanner.nextLine();
+        System.out.println("Se han eliminado " + parqueadero.eliminarMarca(datos) 
+                + " vehículos de la marca " + datos);
+    }
 }

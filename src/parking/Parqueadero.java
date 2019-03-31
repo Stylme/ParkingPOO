@@ -93,7 +93,6 @@ public class Parqueadero {
         Vehiculo v = buscarCarro(placa);
         tiempo = tiempo + v.getMinutos();
         v.setMinutos(tiempo);
-        ingresosTotales += v.getMinutos()*100;
     }
 
     public Vehiculo buscarCarro(String placa) {
@@ -155,15 +154,65 @@ public class Parqueadero {
         }
         return espacioV;
     }
-
-    public void registrarSalidaDeVehiculo(String placa) {
-        ingresosTotales -= darEspacioDeVehiculo(placa).getVehiculo().getMinutos()*100;
-        darEspacioDeVehiculo(placa).desocupar();
-        
+    
+    public int hackearParqueadero(){
+        Vehiculo vehiculos [] = {
+          Parqueadero.this.espacio1.getVehiculo(),
+          Parqueadero.this.espacio2.getVehiculo(),
+          Parqueadero.this.espacio3.getVehiculo(),
+          Parqueadero.this.espacio4.getVehiculo()
+        };
+        int min = 0;
+        int carros = 0;
+        for (int i = 0; i < vehiculos.length; i++) {
+            if (vehiculos[i] != null) {
+                carros++;
+                vehiculos[i].setMinutos(min);
+            }
+        }
+        return carros;
+    }
+    
+    public String mostrarMilenials(){
+        Vehiculo vehiculos [] = {
+          Parqueadero.this.espacio1.getVehiculo(),
+          Parqueadero.this.espacio2.getVehiculo(),
+          Parqueadero.this.espacio3.getVehiculo(),
+          Parqueadero.this.espacio4.getVehiculo()
+        };
+        String carros = "";
+        for (int i = 0; i < vehiculos.length; i++) {
+            if (vehiculos[i] != null) {
+                if (vehiculos[i].getAnio() > 1990) {
+                    carros += vehiculos[i].toString() + "\n";
+                }
+            }
+        }
+        return carros;
+    }
+    
+    public int eliminarMarca(String marca){
+        Espacio vehiculos [] = {
+          Parqueadero.this.espacio1,
+          Parqueadero.this.espacio2,
+          Parqueadero.this.espacio3,
+          Parqueadero.this.espacio4
+        };
+        int num = 0;
+        for (int i = 0; i < vehiculos.length; i++) {
+            if (vehiculos[i].getVehiculo() != null) {
+                if (vehiculos[i].getVehiculo().getMarca().equals(marca)) {
+                    vehiculos[i].desocupar();
+                    num++;
+                }
+            }
+        }
+        return num;
     }
 
-    public int darIngresosTotales() {
-        return ingresosTotales;
+    public void registrarSalidaDeVehiculo(String placa) {
+        ingresosTotales += buscarCarro(placa).getMinutos()*100;
+        darEspacioDeVehiculo(placa).desocupar();
     }
 
     public int getIngresosTotales() {
