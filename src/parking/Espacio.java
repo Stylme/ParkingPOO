@@ -1,27 +1,22 @@
 package parking;
 
-
 public class Espacio {
     
-    // Declaracion de atributos
+    // Declaración de atributos
     
     private int id;
     private boolean ocupado = false;
     
-    /* Atributos de -->
-    Asociacion bidireccional con multiplicidad 0..1
-    */
-    
     private Vehiculo vehiculo;
     
-    // Creacion del constructor
+    // Creación del constructor
     
     public Espacio(int id) {
         this.id = id;
         vehiculo = null;
     }
     
-    // Creacion de los metodos
+    // Creación de los métodos
 
     public int getId() {
         return id;
@@ -64,7 +59,7 @@ public class Espacio {
     }
     
     
-    // llamado a la clase string
+    // llamado a la clase String
 
     @Override
     public String toString() {

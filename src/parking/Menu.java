@@ -12,23 +12,19 @@ public class Menu {
         menu.desplegarMenu();
     }
     
-    // Se declara el atributo scanner como Objeto de la clase Scanner, 
-    //final para que sea const y no se pueda sobreescribir en otros metodos
+    // Declaración de atributos.
     
-    private final Scanner scanner = new Scanner(System.in);
-    
-    /* Atributos de -->
-       Asociacion unidireccional con multiplicidad 1*/
+    private final Scanner scanner = new Scanner(System.in);    
     
     private Parqueadero parqueadero = new Parqueadero();
 
-    // Creacion del constructor de la clase
+    // Creación del constructor de la clase.
     
     public Menu() {
     
     }
     
-    // Creacion de métodos de la clase, definidos como comportamientos u operaciones
+    // Creación de métodos de la clase, definidos como comportamientos u operaciones.
     
     public void desplegarMenu() {
         mostrarOpciones();
@@ -39,19 +35,19 @@ public class Menu {
 
     private void mostrarOpciones() {
         
-        String strMenu = "\n--- Sistema calificaciones ---";
-        strMenu += "\n0. Salir.";
-        strMenu += "\n1. Asignar vehículo a espacio.";
-        strMenu += "\n2. Agregar tiempo a vehículo.";
-        strMenu += "\n3. Cambiar espacio de vehículo.";
-        strMenu += "\n4. Registrar salida de vehiculo.";
-        strMenu += "\n5. Dar ingresos totales.";
-        strMenu += "\n6. Mostrar parqueadero.";
+        String strMenu = "\nMenú, digite una de las siguientes opciones:";
+        strMenu += "\n1. Inicializar/Reiniciar parqueadero.";
+        strMenu += "\n2. Agregar vehículo a espacio.";
+        strMenu += "\n3. Agregar tiempo a vehículo.";
+        strMenu += "\n4. Cambiar espacio de vehículo.";
+        strMenu += "\n5. Registrar salida de vehiculo.";
+        strMenu += "\n6. Dar ingresos totales.";
+        strMenu += "\n7. Mostrar parqueadero.";
         strMenu += "\n11. Hackear parqueadero.";
         strMenu += "\n12. Mostrar vehículos milenials.";
         strMenu += "\n13. Eliminar vehículos por marca.";
+        strMenu += "\n0. Salir.";
         strMenu += "\n\nIngrese la opción: ";
-        
         System.out.print(strMenu);
     }
 
@@ -62,21 +58,24 @@ public class Menu {
                 System.exit(0);
                 break;
             case 1:
-                ingresarVehiculo();
+                iniciarParqueadero();
                 break;
             case 2:
-                agregarTiempoAVehiculo();
+                ingresarVehiculo();
                 break;
             case 3:
-                cambiarEspacioVehiculo();
+                agregarTiempoAVehiculo();
                 break;
             case 4:
-                registrarSalidaVehiculo();
+                cambiarEspacioVehiculo();
                 break;
             case 5:
-                darIngresosTotales();
+                registrarSalidaVehiculo();
                 break;
             case 6:
+                darIngresosTotales();
+                break;
+            case 7:
                 mostrarParqueadero();
                 break;
             case 11:
@@ -90,6 +89,14 @@ public class Menu {
                 break;
         }
         
+    }
+    
+    private void iniciarParqueadero(){
+        System.out.println("Inicializar parqueadero.");
+        System.out.print("Ingrese el número de espacios: ");
+        int n = Integer.parseInt(scanner.nextLine());
+        parqueadero.inciarParqueadero(n);
+        System.out.println("\nSalida: \nSe ha creado un nuevo parqueadero con " + n + " espacios.");
     }
     
     private void ingresarVehiculo(){

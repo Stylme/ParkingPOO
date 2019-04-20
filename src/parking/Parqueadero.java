@@ -1,114 +1,66 @@
 package parking;
 
+import java.util.ArrayList;
+
 public class Parqueadero {
 
-    // Declaracion de atributos
+    // Declaración de atributos
     private int ingresosTotales;
 
-    /* Atributos de -->
-     Asociacion bidireccional con multiplicidad 1
-     */
-    private Espacio espacio1;
-    private Espacio espacio2;
-    private Espacio espacio3;
-    private Espacio espacio4;
+    private ArrayList<Espacio> espacios;
 
     public Vehiculo vehiculo;
 
-    public Parqueadero() {
-        espacio1 = new Espacio(1);
-        espacio2 = new Espacio(2);
-        espacio3 = new Espacio(3);
-        espacio4 = new Espacio(4);
+    // Creación de los métodos
+    public ArrayList<Espacio> inciarParqueadero(int numeroEspacios) {
+        this.espacios = new ArrayList<>(numeroEspacios);
+        Espacio e;
+        for (int i = 1; i <= numeroEspacios; i++) {
+            e = new Espacio(i);
+            espacios.add(e);
+        }
+        return this.espacios;
     }
 
-    // Creacion de los metodos
     public void ingresarVehiculo(int espacio, String placa, String marca, String modelo, int anio) {
-
+        espacio--;
         vehiculo = new Vehiculo(placa, marca, modelo, anio);
-
-        switch (espacio) {
-            case 1:
-                if (espacio1.estaOcuapdo()) {
-                    espacio1.agregarVehiculo(vehiculo);
-                    System.out.println("El vehículo " + Parqueadero.this.vehiculo.toString() + espacio1.toString());
-                } else {
-                    System.out.println("El vehículo " + Parqueadero.this.vehiculo.toString()
-                            + espacio1.toString(" no se puede agregar al espacio 1 porque esta ocupado por el vehículo")
-                            + espacio1.getVehiculo());
-                }
-                break;
-            case 2:
-                if (espacio2.estaOcuapdo()) {
-                    espacio2.agregarVehiculo(vehiculo);
-                    System.out.println("El vehículo " + Parqueadero.this.vehiculo.toString() + espacio2.toString());
-                } else {
-                    System.out.println("El vehículo " + Parqueadero.this.vehiculo.toString()
-                            + espacio2.toString(" no se puede agregar al espacio 2 porque esta ocupado por el vehículo")
-                            + espacio2.getVehiculo());
-                }
-                break;
-            case 3:
-                if (espacio3.estaOcuapdo()) {
-                    espacio3.agregarVehiculo(vehiculo);
-                    System.out.println("El vehículo " + Parqueadero.this.vehiculo.toString() + espacio3.toString());
-                } else {
-                    System.out.println("El vehículo " + Parqueadero.this.vehiculo.toString()
-                            + espacio3.toString(" no se puede agregar al espacio 3 porque esta ocupado por el vehículo")
-                            + espacio3.getVehiculo());
-                }
-                break;
-            case 4:
-                if (espacio4.estaOcuapdo()) {
-                    espacio4.agregarVehiculo(vehiculo);
-                    System.out.println("El vehículo " + Parqueadero.this.vehiculo.toString() + espacio4.toString());
-                } else {
-                    System.out.println("El vehículo " + Parqueadero.this.vehiculo.toString()
-                            + espacio4.toString(" no se puede agregar al espacio 4 porque esta ocupado por el vehículo")
-                            + espacio4.getVehiculo());
-                }
-                break;
-            default:
-                System.out.println("No existe el espacio " + espacio);
-                return;
+        if (espacios.get(espacio).estaOcuapdo()) {
+            espacios.get(espacio).agregarVehiculo(vehiculo);
+            System.out.println("El vehículo " + Parqueadero.this.vehiculo.toString() + espacios.get(espacio).toString());
+        } else {
+            System.out.println("El vehículo " + Parqueadero.this.vehiculo.toString()
+                    + espacios.get(espacio).toString(" no se puede agregar al espacio 1 porque esta ocupado por el vehículo")
+                    + espacios.get(espacio).getVehiculo());
         }
-
     }
 
     private Espacio buscarEspacio(int id) {
-        Espacio espacio = null;
-        Espacio espacios[] = {Parqueadero.this.espacio1,
-            Parqueadero.this.espacio2,
-            Parqueadero.this.espacio3,
-            Parqueadero.this.espacio4};
-        for (int i = 0; i < espacios.length; i++) {
-            if (espacios[i].getId() == id) {
-                espacio = espacios[i];
+        Espacio espacioRetornado = null;
+        for (int i = 0; i < espacios.size(); i++) {
+            if (espacios.get(i).getId() == id) {
+                espacioRetornado = espacios.get(i);
             }
         }
-        return espacio;
+        return espacioRetornado;
+    }
+
+    public Vehiculo buscarCarro(String placa) {
+        Vehiculo vehiculoRetornado = null;
+        for (int i = 0; i < espacios.size(); i++) {
+            if (espacios.get(i).getVehiculo() != null) {
+                if (espacios.get(i).getVehiculo().getPlaca().equals(placa)) {
+                    vehiculoRetornado = espacios.get(i).getVehiculo();
+                }
+            }
+        }
+        return vehiculoRetornado;
     }
 
     public void agregarTiempoAVehiculo(String placa, int tiempo) {
         Vehiculo v = buscarCarro(placa);
         tiempo = tiempo + v.getMinutos();
         v.setMinutos(tiempo);
-    }
-
-    public Vehiculo buscarCarro(String placa) {
-        Vehiculo vehiculoR = null;
-        Vehiculo vehiculos[] = {Parqueadero.this.espacio1.getVehiculo(),
-            Parqueadero.this.espacio2.getVehiculo(),
-            Parqueadero.this.espacio3.getVehiculo(),
-            Parqueadero.this.espacio4.getVehiculo()};
-        for (int i = 0; i < vehiculos.length; i++) {
-            if (vehiculos[i] != null) {
-                if (vehiculos[i].getPlaca().equals(placa)) {
-                    vehiculoR = vehiculos[i];
-                }
-            }
-        }
-        return vehiculoR;
     }
 
     public void cambiarEspacioAVehiculo(String placa, int nuevoEspacio) {
@@ -140,69 +92,47 @@ public class Parqueadero {
 
     private Espacio darEspacioDeVehiculo(String placa) {
         Vehiculo v = buscarCarro(placa);
-        Espacio espacioV = null;
-        Espacio espacios[] = {Parqueadero.this.espacio1,
-            Parqueadero.this.espacio2,
-            Parqueadero.this.espacio3,
-            Parqueadero.this.espacio4};
-        for (int i = 0; i < espacios.length; i++) {
-            if (espacios[i] != null) {
-                if (espacios[i].getVehiculo() == v) {
-                    espacioV = espacios[i];
+        Espacio espacioVehiculo = null;
+        for (int i = 0; i < espacios.size(); i++) {
+            if (espacios.get(i).getVehiculo() != null) {
+                if (espacios.get(i).getVehiculo() == v) {
+                    espacioVehiculo = espacios.get(i);
                 }
             }
         }
-        return espacioV;
+        return espacioVehiculo;
     }
-    
-    public int hackearParqueadero(){
-        Vehiculo vehiculos [] = {
-          Parqueadero.this.espacio1.getVehiculo(),
-          Parqueadero.this.espacio2.getVehiculo(),
-          Parqueadero.this.espacio3.getVehiculo(),
-          Parqueadero.this.espacio4.getVehiculo()
-        };
+
+    public int hackearParqueadero() {
         int min = 0;
         int carros = 0;
-        for (int i = 0; i < vehiculos.length; i++) {
-            if (vehiculos[i] != null) {
+        for (int i = 0; i < espacios.size(); i++) {
+            if (espacios.get(i).getVehiculo() != null) {
                 carros++;
-                vehiculos[i].setMinutos(min);
+                espacios.get(i).getVehiculo().setMinutos(min);
             }
         }
         return carros;
     }
-    
-    public String mostrarMilenials(){
-        Vehiculo vehiculos [] = {
-          Parqueadero.this.espacio1.getVehiculo(),
-          Parqueadero.this.espacio2.getVehiculo(),
-          Parqueadero.this.espacio3.getVehiculo(),
-          Parqueadero.this.espacio4.getVehiculo()
-        };
+
+    public String mostrarMilenials() {
         String carros = "";
-        for (int i = 0; i < vehiculos.length; i++) {
-            if (vehiculos[i] != null) {
-                if (vehiculos[i].getAnio() > 1990) {
-                    carros += vehiculos[i].toString() + "\n";
+        for (int i = 0; i < espacios.size(); i++) {
+            if (espacios.get(i).getVehiculo() != null) {
+                if (espacios.get(i).getVehiculo().getAnio() > 1990) {
+                    carros += espacios.get(i).getVehiculo().toString() + "\n";
                 }
             }
         }
         return carros;
     }
-    
-    public int eliminarMarca(String marca){
-        Espacio vehiculos [] = {
-          Parqueadero.this.espacio1,
-          Parqueadero.this.espacio2,
-          Parqueadero.this.espacio3,
-          Parqueadero.this.espacio4
-        };
+
+    public int eliminarMarca(String marca) {
         int num = 0;
-        for (int i = 0; i < vehiculos.length; i++) {
-            if (vehiculos[i].getVehiculo() != null) {
-                if (vehiculos[i].getVehiculo().getMarca().equals(marca)) {
-                    vehiculos[i].desocupar();
+        for (int i = 0; i < espacios.size(); i++) {
+            if (espacios.get(i).getVehiculo() != null) {
+                if (espacios.get(i).getVehiculo().getMarca().equals(marca)) {
+                    espacios.get(i).desocupar();
                     num++;
                 }
             }
@@ -211,7 +141,7 @@ public class Parqueadero {
     }
 
     public void registrarSalidaDeVehiculo(String placa) {
-        ingresosTotales += buscarCarro(placa).getMinutos()*100;
+        ingresosTotales += buscarCarro(placa).getMinutos() * 100;
         darEspacioDeVehiculo(placa).desocupar();
     }
 
@@ -227,11 +157,16 @@ public class Parqueadero {
         strParking += "\n{\n";
         strParking += "  \"ingresos\": $" + strIngTo + ",\n";
         strParking += "  \"espacios\": [\n";
-        strParking += "     {\"id\": " + espacio1.getId() + ", \"vehículo\":" + espacio1.getVehiculo() + "},\n";
-        strParking += "     {\"id\": " + espacio2.getId() + ", \"vehículo\":" + espacio2.getVehiculo() + "},\n";
-        strParking += "     {\"id\": " + espacio3.getId() + ", \"vehículo\":" + espacio3.getVehiculo() + "},\n";
-        strParking += "     {\"id\": " + espacio4.getId() + ", \"vehículo\":" + espacio4.getVehiculo() + "}}";
-        strParking += "\n   ]\n";
+        for (int i = 0; i < espacios.size(); i++) {
+            if (espacios.get(i).getId() == espacios.size()){
+                strParking += "     {\"id\": " + espacios.get(i).getId() + ", \"vehículo\":"
+                    + espacios.get(i).getVehiculo() + "}\n";
+            } else {
+                strParking += "     {\"id\": " + espacios.get(i).getId() + ", \"vehículo\":"
+                    + espacios.get(i).getVehiculo() + "},\n";
+            }
+        }
+        strParking += "   ]\n";
         strParking += "}\n";
 
         return strParking;

@@ -3,14 +3,14 @@ package parking;
 
 public class Vehiculo {
     
-    // Declaracion de atributos
+    // Declaración de atributos
     private String placa;
     private String marca;
     private String modelo;
     private int anio;
     private int minutos =0;
     
-    // Creacion del contructor
+    // Creación del contructor
 
     public Vehiculo(String placa, String marca, String modelo, int anio) {
         this.placa = placa;
@@ -19,7 +19,7 @@ public class Vehiculo {
         this.anio = anio;
     }
     
-    // Creacion de los metodos
+    // Creación de los métodos
 
     public void setPlaca(String placa) {
         this.placa = placa;
@@ -69,7 +69,7 @@ public class Vehiculo {
         return this.minutos;
     }
     
-    // llamado a la clase string
+    // llamado a la clase String
 
     @Override
     public String toString() {
